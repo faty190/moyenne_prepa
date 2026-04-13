@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul Moyenne Générale</title>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c2c54;
+    }
+
+    .field {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #3a3a6a;
+        box-shadow: 0 0 5px rgba(58,58,106,0.4);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 15px;
+        background: #3a3a6a;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #2c2c54;
+    }
+
+    .result {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #2c2c54;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Calcul de la Moyenne Générale</h2>
+
+    <div id="form"></div>
+
+    <button onclick="calculerMoyenne()">Calculer la moyenne</button>
+
+    <div class="result" id="resultat"></div>
+</div>
+
+<script>
+    const matieres = {
+        "Analyse": 5,
+        "Algèbre": 5,
+        "Electro": 4,
+        "Chimie": 6,
+        "Mécanique": 6,
+        "Statistique": 5,
+        "Informatique": 4,
+        "Français": 3,
+        "Anglais": 3
+    };
+
+    const formDiv = document.getElementById("form");
+
+    for (let matiere in matieres) {
+        const coef = matieres[matiere];
+        formDiv.innerHTML += `
+            <div class="field">
+                <label>${matiere} (coef ${coef})</label>
+                <input type="number" min="0" max="20" step="0.01" id="${matiere}" placeholder="Entrer la note">
+            </div>
+        `;
+    }
+
+    function calculerMoyenne() {
+        let somme = 0;
+        let sommeCoef = 0;
+
+        for (let matiere in matieres) {
+            const coef = matieres[matiere];
+            const note = parseFloat(document.getElementById(matiere).value) || 0;
+            somme += note * coef;
+            sommeCoef += coef;
+        }
+
+        const moyenne = somme / sommeCoef;
+        document.getElementById("resultat").innerHTML =
+            "Moyenne Générale : " + moyenne.toFixed(3);
+    }
+</script>
+
+</body>
+</html>
